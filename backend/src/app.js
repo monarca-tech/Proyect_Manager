@@ -1,0 +1,27 @@
+import app from "./index.js";
+import { port } from "./Config.js";
+import pool from "./postgresql/postgres.js";
+
+app.listen(port, async () => {
+  console.log(`serve in port  ${port}! `);
+
+  pool.query(`CREATE TABLE if NOT exists users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    passwords VARCHAR(255) NOT NULL
+);
+
+CREATE Table IF NOT EXISTS posts (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    contents TEXT NOT NULL,
+    tecnologia TEXT [] NOT NULL DEFAULT '{}',
+    states VARCHAR(255) NOT NULL DEFAULT 'not initial',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INTEGER,
+    constraint fx_user Foreign Key (user_id) REFERENCES users (id) on delete CASCADE on update CASCADE
+);
+`);
+});
