@@ -75,9 +75,7 @@ router_user.post("/login", async (req, res) => {
     return res
       .status(200)
       .cookie("token", token, {
-        httpOnly: false,
-        secure: false,
-        sameSite: "Lax",
+        
         maxAge: 24 * 60 * 60 * 1000,
         expires:'1D'
       })
