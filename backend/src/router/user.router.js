@@ -75,9 +75,11 @@ router_user.post("/login", async (req, res) => {
     return res
       .status(200)
       .cookie("token", token, {
-        
+        httpOnly: false,
+        secure: true,
+        sameSite: "none",
         maxAge: 24 * 60 * 60 * 1000,
-        expires:'1D'
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       })
       .json({ msg: "Login successful", token: token });
   } catch (error) {
@@ -116,9 +118,8 @@ router_user.delete("/delete_acum", verifiToken, async (req, res) => {
     if (!password) {
       return res.status(400).json({ msg: "Key incorrecta" });
     }
-   await pool.query("delete from users where id = $1", [req.user.id]);
+    await pool.query("delete from users where id = $1", [req.user.id]);
     res.status(200).json({ msg: "Cuenta eliminada" });
-    
   } catch (erro) {
     console.log(erro);
   }
