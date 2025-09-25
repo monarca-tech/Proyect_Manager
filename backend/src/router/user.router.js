@@ -79,6 +79,7 @@ router_user.post("/login", async (req, res) => {
         secure: false,
         sameSite: "Lax",
         maxAge: 24 * 60 * 60 * 1000,
+        expires:'1D'
       })
       .json({ msg: "Login successful", token: token });
   } catch (error) {
