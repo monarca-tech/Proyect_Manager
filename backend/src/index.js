@@ -2,13 +2,13 @@ import express from "express";
 import cors from "cors";
 import cookiParse from "cookie-parser";
 import dotenv from "dotenv";
-import { DT_hosting } from './Config.js'
+// import { DT_hosting } from './Config.js'
 const app = express();
 
 // config
 dotenv.config();
 app.use(express.json());
-app.use(cors({ origin: DT_hosting, credentials: true }));
+app.use(cors({ origin: [ "https://proyectmanagers.netlify.app" ,"http://localhost:4173"], credentials: true }));
 app.use(cookiParse());
 
 app.get("/", (req, res) => res.send("welcome to the api infinecrip"));
