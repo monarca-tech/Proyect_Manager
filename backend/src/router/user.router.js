@@ -75,13 +75,12 @@ router_user.post("/login", async (req, res) => {
     return res
       .status(200)
       .cookie("token", token, {
-        httpOnly: true,
-        secure: true, //en producion
-        sameSite: "none",
-        maxAge: 24 * 60 * 60 * 1000,
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        httpOnly: true, // más seguro, no accesible desde JS
+        secure: true, // obligatorio en producción (HTTPS en Netlify)
+        sameSite: "none", // necesario si frontend y backend están en dominios distintos
+        maxAge: 24 * 60 * 60 * 1000, // 1 día
       })
-      .json({ msg: "Login successful", token: token });
+      .json({ msg: "Login successful" }); // ⚡ ya no enviamos el token aquí
   } catch (error) {
     console.log(error);
   }

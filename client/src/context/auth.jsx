@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import  { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import URLs from "./URLs";
 const Context = createContext();
@@ -6,7 +6,6 @@ const Context = createContext();
 function AuthProvaider({ children }) {
   //
   const navigation = useNavigate();
-
 
   const [Autenticado, setAutenticado] = useState(false);
   // login
