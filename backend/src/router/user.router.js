@@ -75,8 +75,8 @@ router_user.post("/login", async (req, res) => {
     return res
       .status(200)
       .cookie("token", token, {
-        httpOnly: false,
-        secure: true,
+        httpOnly: true,
+        secure: true, //en producion
         sameSite: "none",
         maxAge: 24 * 60 * 60 * 1000,
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
@@ -89,7 +89,7 @@ router_user.post("/login", async (req, res) => {
 // profile
 router_user.get("/profile", verifiToken, (req, res) => {
   try {
-    res.json(req.user);
+    res.json({ autenticado: true, user: req.user });
   } catch (erro) {
     console.log(erro);
   }

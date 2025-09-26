@@ -35,7 +35,7 @@ function reduce(state, action) {
 
 
 function ProvaiderPost({ children }) {
-  const { tokenVerifi } = useContext(Context);
+  const { Autenticado } = useContext(Context);
 
   const [state, dispacth] = useReducer(reduce, { data: [] });
 
@@ -57,10 +57,10 @@ function ProvaiderPost({ children }) {
   const [numProyect, setnumProyect] = useState(0);
 
   useEffect(() => {
-    if (tokenVerifi) {
+    if (Autenticado) {
       getPost();
     }
-  }, [tokenVerifi]);
+  }, [Autenticado]);
 
   function viewAddfun() {
     setviewadd(!viewadd);

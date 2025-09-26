@@ -15,7 +15,7 @@ import { Context } from "../context/auth";
 import { Contextpost } from "../context/postContext";
 //
 function Home() {
-  const { tokenVerifi } = useContext(Context);
+  const { Autenticado } = useContext(Context);
   const { viewAddfun, viewadd, viewUP, setfilter, filterPost } =
     useContext(Contextpost);
   return (
@@ -25,7 +25,7 @@ function Home() {
 
       {/*  */}
       <Fade cascade duration={1000} triggerOnce damping={0.2}>
-        {tokenVerifi ? (
+        {Autenticado ? (
           <div className=" absolute top-5 left-5">
             <div className="flex gap-4 items-center justify-center ">
               <Link
@@ -61,7 +61,7 @@ function Home() {
           <h1 className="max-sm:text-2xl text-4xl font-bold text-clip bg-gradient-to-r from-blue-400 to-green-600 bg-clip-text text-transparent">
             Proyect Manager
           </h1>
-          {tokenVerifi ? (
+          {Autenticado ? (
             <>
               <p className="max-sm:text-[15px] text-lg  ">
                 Sistema profecional de gestion de proyecto de desarrollo web
@@ -83,7 +83,7 @@ function Home() {
         </div>
 
         <div className=" flex  items-center justify-center gap-4 p-4">
-          {tokenVerifi ? (
+          {Autenticado ? (
             <Input
               title="Buscar Proyecto..."
               onchange={setfilter}

@@ -6,9 +6,9 @@ const Context = createContext();
 function AuthProvaider({ children }) {
   //
   const navigation = useNavigate();
-  const tokenVerifi = document.cookie
-    .split("; ")
-    .some((cookie) => cookie.startsWith("token" + "="));
+
+
+  const [Autenticado, setAutenticado] = useState(false);
   // login
   const [email, setemail] = useState();
   const [name, setname] = useState();
@@ -64,6 +64,7 @@ function AuthProvaider({ children }) {
       setTimeout(() => {
         navigation("/");
         setmsg("");
+        navigation(0);
       }, 1000);
     } else {
       setmsg(data.msg);
@@ -81,8 +82,9 @@ function AuthProvaider({ children }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setusername(data.name);
-        setuseremail(data.email);
+        setusername(data.user.name);
+        setuseremail(data.user.email);
+        setAutenticado(data.autenticado)
       });
   }
   // logout
@@ -132,10 +134,9 @@ function AuthProvaider({ children }) {
   }
 
   useEffect(() => {
-    if (tokenVerifi) {
-      Profile();
-    }
-  }, [tokenVerifi]);
+   
+    Profile();
+  }, [Autenticado]);
 
   const data = {
     setkey,
@@ -149,7 +150,7 @@ function AuthProvaider({ children }) {
     username,
     useremail,
     delAcoum,
-    tokenVerifi,
+    Autenticado,
     viewKeyfun,
     viewKEY,
   };
