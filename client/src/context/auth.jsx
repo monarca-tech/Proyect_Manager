@@ -1,4 +1,4 @@
-import  { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import URLs from "./URLs";
 const Context = createContext();
@@ -71,20 +71,23 @@ function AuthProvaider({ children }) {
   }
 
   // profile
-  function Profile() {
-    fetch(`${URLs}/user/api/profile`, {
+  async function Profile() {
+    const res = await fetch(`${URLs}/user/api/profile`, {
       method: "GET",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setusername(data.user.name);
-        setuseremail(data.user.email);
-        setAutenticado(data.autenticado)
-      });
+    });
+    const data = await res.json();
+    if (res.ok) {
+      setusername(data.user.name);
+      setuseremail(data.user.email);
+      setAutenticado(data.autenticado);
+    } else {
+      setAutenticado(false);
+      navigation("/login");
+    }
   }
   // logout
 
@@ -133,7 +136,6 @@ function AuthProvaider({ children }) {
   }
 
   useEffect(() => {
-   
     Profile();
   }, [Autenticado]);
 
