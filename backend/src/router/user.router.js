@@ -88,7 +88,7 @@ router_user.post("/login", async (req, res) => {
 // profile
 router_user.get("/profile", verifiToken, (req, res) => {
   try {
-    res.json({ autenticado: true, user: req.user });
+    res.status(200).json({ autenticado: true, user: req.user });
   } catch (erro) {
     console.log(erro);
   }
